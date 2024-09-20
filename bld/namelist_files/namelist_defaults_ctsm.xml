@@ -1757,8 +1757,12 @@ lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_10x15_hist_2000_16pfts_c240216.nc</fsu
 lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_4x5_hist_2000_16pfts_c240216.nc</fsurdat>
 <fsurdat hgrid="mpasa60"   sim_year="2000" use_crop=".false.">
 lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_mpasa60_hist_2000_16pfts_c240216.nc</fsurdat>
+<fsurdat hgrid="mpasa30"   sim_year="2000" use_crop=".false.">
+lnd/clm2/surfdata_esmf/ctsm5.3.0/surfdata_mpasa30_hist_2000_16pfts_c240913.nc</fsurdat>
 <fsurdat hgrid="mpasa15"   sim_year="2000" use_crop=".false.">
 lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_mpasa15_hist_2000_16pfts_c240216.nc</fsurdat>
+<fsurdat hgrid="mpasa7p5"   sim_year="2000" use_crop=".false.">
+lnd/clm2/surfdata_esmf/ctsm5.3.0/surfdata_mpasa7p5_hist_2000_16pfts_c240913.nc</fsurdat>
 <!--
 <fsurdat hgrid="mpasa15-3" sim_year="2000" use_crop=".false.">
 lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_mpasa15-3_hist_2000_16pfts_c240216.nc</fsurdat>
@@ -1829,18 +1833,6 @@ lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_ne0np4.ARCTICGRIS.ne30x8_hist_2000_78p
 lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_ne0np4.ARCTIC.ne30x4_hist_2000_78pfts_c240216.nc</fsurdat>
 <fsurdat hgrid="ne0np4CONUS.ne30x8"       sim_year="2000">
 lnd/clm2/surfdata_esmf/ctsm5.2.0/surfdata_ne0np4CONUS.ne30x8_hist_2000_78pfts_c240216.nc</fsurdat>
-
-<!-- MPAS atmosphere dycore/grids (experimental) -->
-<fsurdat hgrid="mpasa480" sim_year="2000">
-lnd/clm2/surfdata_map/surfdata_mpasa480_hist_78pfts_CMIP6_simyr2000_c211110.nc</fsurdat>
-<fsurdat hgrid="mpasa120" sim_year="2000">
-lnd/clm2/surfdata_map/surfdata_mpasa120_hist_78pfts_CMIP6_simyr2000_c211108.nc</fsurdat>
-<fsurdat hgrid="mpasa60"  sim_year="2000">
-lnd/clm2/surfdata_map/surfdata_mpasa60_hist_78pfts_CMIP6_simyr2000_c211110.nc</fsurdat>
-<fsurdat hgrid="mpasa30"  sim_year="2000">
-lnd/clm2/surfdata_map/surfdata_mpasa30_hist_78pfts_CMIP6_simyr2000_c211111.nc</fsurdat>
-<fsurdat hgrid="mpasa15"  sim_year="2000">
-lnd/clm2/surfdata_map/surfdata_mpasa15_hist_78pfts_CMIP6_simyr2000_c211111.nc</fsurdat>
 
 <!-- 100% Urban single-point datasets (only for sim-year=2000) -->
 <fsurdat hgrid="1x1_vancouverCAN"    sim_year="2000" >
