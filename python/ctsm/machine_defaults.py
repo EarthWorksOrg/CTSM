@@ -47,7 +47,9 @@ MACHINE_DEFAULTS = {
     "cheyenne": MachineDefaults(
         job_launcher_type=JOB_LAUNCHER_QSUB,
         scratch_dir=os.path.join(os.path.sep, "glade", "scratch", get_user()),
-        baseline_dir=os.path.join(os.path.sep, "glade", "p", "cgd", "tss", "ctsm_baselines"),
+        baseline_dir=os.path.join(
+            os.path.sep, "glade", "p", "cgd", "tss", "To_Be_Safely_Deleted", "ctsm_baselines"
+        ),
         account_required=True,
         create_test_retry=0,
         # NOTE(wjs, 2022-02-23) By default, use the regular queue, even for
@@ -72,7 +74,7 @@ MACHINE_DEFAULTS = {
         baseline_dir=os.path.join(os.path.sep, "glade", "campaign", "cgd", "tss", "ctsm_baselines"),
         account_required=True,
         create_test_retry=0,
-        create_test_queue="regular",
+        create_test_queue=CREATE_TEST_QUEUE_UNSPECIFIED,
         job_launcher_defaults={
             JOB_LAUNCHER_QSUB: QsubDefaults(
                 queue="main",

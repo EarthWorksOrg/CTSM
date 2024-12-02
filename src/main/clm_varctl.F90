@@ -115,7 +115,7 @@ module clm_varctl
   character(len=fname_len), public :: fsnowaging   = ' '      ! snow aging parameters file name
 
   character(len=fname_len), public :: fatmlndfrc = ' '        ! lnd frac file on atm grid
-                                                              ! only needed for LILAC and MCT drivers
+                                                              ! only needed for LILAC
 
   !----------------------------------------------------------
   ! Flag to read ndep rather than obtain it from coupler
@@ -152,11 +152,20 @@ module clm_varctl
   ! true => separate crop landunit is not created by default
   logical, public :: create_crop_landunit = .false.     
   
+  ! number of hillslopes per landunit
+  integer, public :: nhillslope = 0
+
+  ! maximum number of hillslope columns per landunit
+  integer, public :: max_columns_hillslope = 1
+
   ! do not irrigate by default
   logical, public :: irrigate = .false.            
 
   ! set saturated excess runoff to zero for crops
   logical, public :: crop_fsat_equals_zero = .false.
+
+  ! remove this fraction of crop residues to a 1-year product pool (instead of going to litter)
+  real(r8), public :: crop_residue_removal_frac = 0.0
   
   !----------------------------------------------------------
   ! Other subgrid logic
@@ -226,6 +235,8 @@ module clm_varctl
 
   ! which snow cover fraction parameterization to use
   character(len=64), public :: snow_cover_fraction_method
+  ! which snow thermal conductivity parameterization to use
+  character(len=25), public :: snow_thermal_cond_method
 
   ! atmospheric CO2 molar ratio (by volume) (umol/mol)
   real(r8), public :: co2_ppmv     = 355._r8            !
@@ -266,6 +277,11 @@ module clm_varctl
   logical, public :: do_sno_oc = .false.  ! control to include organic carbon (OC) in snow
 
   !----------------------------------------------------------
+  ! DUST emission method
+  !----------------------------------------------------------
+  character(len=25), public :: dust_emis_method = 'Zender_2003'  ! Dust emisison method to use: Zender_2003 or Leung_2023
+
+  !----------------------------------------------------------
   ! C isotopes
   !----------------------------------------------------------
 
@@ -295,6 +311,8 @@ module clm_varctl
 
   ! These are INTERNAL to the FATES module
 
+  integer, public            :: fates_seeddisp_cadence = iundef         ! 0 => no seed dispersal
+                                                                        ! 1, 2, 3 => daily, monthly, or yearly dispersal
   integer, public            :: fates_parteh_mode = -9                  ! 1 => carbon only
                                                                         ! 2 => C+N+P (not enabled yet)
                                                                         ! no others enabled
@@ -311,6 +329,22 @@ module clm_varctl
   logical, public            :: use_fates_inventory_init = .false.      ! true => initialize fates from inventory
   logical, public            :: use_fates_fixed_biogeog = .false.       ! true => use fixed biogeography mode
   logical, public            :: use_fates_nocomp = .false.              ! true => use no comopetition mode
+
+  ! FATES history dimension level
+  ! fates can produce history at either the daily timescale (dynamics)
+  ! and the model step timescale. It can also generate output on the extra dimension
+  ! Performing this output can be expensive, so we allow different history dimension
+  ! levels.
+  ! The first index is output at the model timescale
+  ! The second index is output at the dynamics (daily) timescale      
+  ! 0 - no output
+  ! 1 - include only column level means (3D)
+  ! 2 - include output that includes the 4th dimension
+  
+  integer, dimension(2), public   :: fates_history_dimlevel = (/2,2/)
+  
+  logical, public            :: use_fates_luh = .false.                 ! true => use FATES landuse data mode
+  character(len=256), public :: fluh_timeseries = ''                    ! filename for fates landuse timeseries data
   character(len=256), public :: fates_inventory_ctrl_filename = ''      ! filename for inventory control
 
   ! FATES SP AND FATES BGC are MUTUTALLY EXCLUSIVE, THEY CAN'T BOTH BE ON
@@ -355,7 +389,7 @@ module clm_varctl
   !----------------------------------------------------------
 
   logical, public :: use_cropcal_streams = .false.
-  logical, public :: use_cropcal_rx_sdates = .false.
+  logical, public :: use_cropcal_rx_swindows = .false.
   logical, public :: use_cropcal_rx_cultivar_gdds = .false.
 
   !----------------------------------------------------------
@@ -374,7 +408,17 @@ module clm_varctl
   integer, public :: soil_layerstruct_userdefined_nlevsoi = iundef
 
   !----------------------------------------------------------
-  !excess ice physics switch
+  ! hillslope hydrology switch
+  !----------------------------------------------------------
+
+  logical, public :: use_hillslope = .false. ! true => use multi-column hillslope hydrology
+  logical, public :: downscale_hillslope_meteorology = .false. ! true => downscale meteorological forcing in hillslope model
+  logical, public :: use_hillslope_routing = .false. ! true => use surface water routing in hillslope hydrology
+  logical, public :: hillslope_fsat_equals_zero = .false. ! set saturated excess runoff to zero for hillslope columns
+
+
+  !----------------------------------------------------------
+  ! excess ice physics switch
   !----------------------------------------------------------
   logical, public :: use_excess_ice = .false. ! true. => use excess ice physics
 
